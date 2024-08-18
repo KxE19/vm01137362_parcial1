@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Sencilla</title>
+</head>
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+<body>
+    <div id="app">
+        <h1>Calculadora</h1>
+
+        <!--Colocando los inputs, donde se ingresaran los digitos-->
+        <div class="input-group">
+            <input type="number" v-model.number="num1" placeholder="Primer número" />
+        </div>
+        <div class="input-group">
+            <input type="number" v-model.number="num2" placeholder="Segundo número" />
+        </div>
+        <!--Input para la selecion de operacion-->
+        <div class="input-group">
+            <select v-model="operacion">
+                <option value="sumar">Sumar (+)</option>
+                <option value="restar">Restar (-)</option>
+                <option value="multiplicar">Multiplicar (×)</option>
+                <option value="dividir">Dividir (÷)</option>
+            </select>
+        </div>
+        <button @click="calcularResultado">Calcular</button>
+        <div v-if="resultado !== null" class="result">
+            Resultado: {{ resultado }}
+        </div>
+    </div>
+
+    <script>
+        const { ref } = Vue;
+
+        const app = Vue.createApp({
+            setup() {
+                // Variables reactivas
+                const num1 = ref(0);
+                const num2 = ref(0);
+                const operacion = ref('sumar');
+                const resultado = ref(null);
+
+                // Función case para calcular el resultado
+                const calcularResultado = () => {
+                    switch (operacion.value) {
+                        case 'sumar':
+                            resultado.value = num1.value + num2.value;
+                            break;
+                        case 'restar':
+                            resultado.value = num1.value - num2.value;
+                            break;
+                        case 'multiplicar':
+                            resultado.value = num1.value * num2.value;
+                            break;
+                        case 'dividir':
+                            if (num2.value !== 0) {
+                                resultado.value = num1.value / num2.value;
+                            } else {
+                                resultado.value = 'Error: División por 0';
+                            }
+                            break;
+                    }
+                };
+                //Regresa el resultado de la operacion hecha
+                return {
+                    num1,
+                    num2,
+                    operacion,
+                    resultado,
+                    calcularResultado
+                };
+            }
+        });
+
+        app.mount('#app');
+    </script>
+</body>
+</html>
+
+<!-- Hecho con composition api -->

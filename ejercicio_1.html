@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenida</title>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    
+</head>
+<body>
+    <div id="app">
+        <h1>MENSAJE DE BIENVENIDA</h1>
+        <bienvenida></bienvenida>
+    </div>
+
+    <script>
+        // Componente del mensaje
+        const MensajeBienvenida = {
+            name: 'MensajeBienvenida',
+            //Esto es lo que aparece en pantalla y tambien para cambiar el nombre de la bienvenida
+            template: `
+                <div>
+                    <h2>¡Hola, se bienvenido mi estimado {{ nombre }}!</h2>
+                    <p>Bienvenido a la pagina principal.</p>
+
+                    <input v-model="nombre" placeholder="Ingresa tu nombre" />
+                </div>
+            `,
+            setup() {
+                const nombre = Vue.ref(''); // Se usa ref para crear una propiedad reactiva
+                return { nombre };
+            }
+        };
+
+        // Aca se crea la app con Vue
+        const app = Vue.createApp({});
+
+        // Donde se muestra el componente
+        app.component('bienvenida', MensajeBienvenida);
+
+        app.mount('#app');
+    </script>
+</body>
+</html>
+<!--Hecho con composition api-->

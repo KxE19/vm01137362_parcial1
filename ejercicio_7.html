@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temas Claro/Oscuro</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        /* Estilos para el tema claro */
+        body.claro {
+            background-color: #ffffff;
+            color: #000000;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Estilos para el tema oscuro */
+        body.oscuro {
+            background-color: #333333;
+            color: #ffffff;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        
+    </style>
+</head>
+<body class="claro">
+    <!-- Creacion del botón -->
+    <div id="app">
+        <button  @click="alternarTema">
+            Cambiar a {{ temaOscuro ? 'Tema Claro' : 'Tema Oscuro' }}
+        </button>
+    </div>
+
+    <script>
+        const { createApp, ref, watchEffect } = Vue
+
+        createApp({
+            setup() {
+                // Estado reactivo para el tema
+                const temaOscuro = ref(false) // false para tema claro, true para tema oscuro
+
+                // Función para cambiar entre temas
+                const alternarTema = () => {
+                    temaOscuro.value = !temaOscuro.value
+                }
+
+                // Aplicar la clase al body según el estado actual del tema
+                watchEffect(() => {
+                    document.body.className = temaOscuro.value ? 'oscuro' : 'claro'
+                })
+
+                // Retornar los datos y métodos a la instancia de Vue
+                return {
+                    temaOscuro,
+                    alternarTema
+                }
+            }
+        }).mount('#app') 
+    </script>
+</body>
+</html>
+
+<!-- Hecho con composition api -->

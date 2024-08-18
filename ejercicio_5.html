@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de tareas</title>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<!--Creacion de botones para crear y eliminar tareas-->
+<body>
+    <div id="app">
+        <h1>Lista de Tareas</h1>
+        <input v-model="nuevaTarea" placeholder="Agregar nueva tarea" @keyup.enter="agregarTarea" />
+        <button @click="agregarTarea">Agregar Tarea</button>
+        <ul>
+            <li v-for="(tarea, index) in tareas" :key="index">
+                {{ tarea }}
+                <button class="delete-button" @click="eliminarTarea(index)">Eliminar</button>
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        const { ref } = Vue;
+
+        const app = Vue.createApp({
+            setup() {
+                // Estado reactivo para la lista de tareas y la nueva tarea
+                const tareas = ref([]);
+                const nuevaTarea = ref('');
+
+                // Función para agregar una nueva tarea
+                const agregarTarea = () => {
+                    if (nuevaTarea.value.trim() !== '') {
+                        tareas.value.push(nuevaTarea.value.trim());
+                        nuevaTarea.value = '';
+                    }
+                };
+
+                // Función para eliminar una tarea
+                const eliminarTarea = (index) => {
+                    tareas.value.splice(index, 1);
+                };
+
+                // Retornamos las variables y funciones para que estén disponibles en el template
+                return {
+                    tareas,
+                    nuevaTarea,
+                    agregarTarea,
+                    eliminarTarea
+                };
+            }
+        });
+        
+        app.mount('#app');
+    </script>
+</body>
+</html>
+<!-- Hecho con composition api -->

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manejar eventos</title>
+    
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+</head>
+<body>
+    <div id="app">
+        <input-alerta-evento></input-alerta-evento>
+    </div>
+
+    <script>
+        //Creacion del componente para la alerta
+        const { ref } = Vue;
+
+        const alertaMensaje = {
+            name: 'alertaMensaje',
+
+            //Escribir lo que se va a mostrar en la alerta
+            template: `
+                <div>
+                    <input v-model="inputValue" placeholder="Escribe algo" />
+                    <button @click="mostrarAlerta">Mostrar Alerta</button>
+                </div>
+            `,
+            setup() {
+                const inputValue = ref(''); // Estado reactivo para almacenar el valor del input
+
+                const mostrarAlerta = () => {
+                    alert(inputValue.value); // Muestra el valor del input en una alerta
+                };
+
+                return {
+                    inputValue,
+                    mostrarAlerta
+                };
+            }
+        };
+
+        const app = Vue.createApp({});
+
+        app.component('input-alerta-evento', alertaMensaje);
+
+        app.mount('#app');
+    </script>
+</body>
+</html>
+
+<!-- Hecho con composition api-->

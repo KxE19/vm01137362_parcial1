@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mostrar/Ocultar Mensaje</title>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <!--Diseño para el boton de ocultar/mostrar -->
+    <style>
+        button {
+            padding: 10px 15px;
+            background-color: #42b983;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #358a6a;
+        }
+    </style>
+</head>
+<body>
+    <!-- Mensaje principal/ Titulo-->
+    <div id="app">
+        <h1>Boton Ocultar/Mostrar Mensaje</h1>
+        <mensaje-mostrado></mensaje-mostrado>
+    </div>
+
+    <script>
+        //Declaracion del componente y configuracion del boton
+        const OcultarMostrarMensaje = {
+            name: 'OcultarMostrarMensaje',
+            template: `
+                <div>
+                    <button @click="cambiarVisibilidad">
+                        {{ visible ? 'Ocultar Mensaje' : 'Mostrar Mensaje' }}
+                    </button>
+                    <div v-if="visible">
+                       Que tengas un excelente dia, animos!.
+                    </div>
+                </div>
+            `,
+            setup() {
+                const visible = Vue.ref(false); // Componente reactivo para controlar la visibilidad
+
+                const cambiarVisibilidad = () => {
+                    visible.value = !visible.value; // Cambia el estado de visibilidad
+                };
+
+                return { visible, cambiarVisibilidad };
+            }
+        };
+
+        
+        const app = Vue.createApp({});
+
+        
+        app.component('mensaje-mostrado', OcultarMostrarMensaje);
+
+        
+        app.mount('#app');
+    </script>
+</body>
+</html>
+<!-- Hecho con composition api-->

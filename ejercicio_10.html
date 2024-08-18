@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mensaje de Cambio con Option API</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        
+        /* Estilo para el componente que muestra el mensaje */
+        .mensaje {
+            font-size: 20px;
+            color: #2c3e50;
+            padding: 20px;
+            border: 2px solid #3498db;
+            border-radius: 10px;
+            background-color: #ecf0f1;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        /* Estilo para el botón */
+        .boton {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #ffffff;
+            background-color: #3498db;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .boton:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- Componente  que muestra un mensaje al cambiar el valor -->
+        <cambiar-mensaje></cambiar-mensaje>
+    </div>
+
+    <script>
+        Vue.createApp({
+            components: {
+                'cambiar-mensaje': {
+                    // Define el estado reactivo del componente
+                    data() {
+                        return {
+                            valor: 0, // Valor inicial
+                            mensaje: 'El valor es 0' // Mensaje inicial
+                        };
+                    },
+                    // Observador para reaccionar a los cambios en 'valor'
+                    watch: {
+                        valor(newValue) {
+                            this.mensaje = `El valor ha cambiado a ${newValue}`; // Actualiza el mensaje
+                        }
+                    },
+                    // Template que se renderiza en el HTML
+                    template: `
+                        <div class="mensaje">
+                            <p>{{ mensaje }}</p> <!-- Muestra el mensaje actualizado -->
+                            <button class="boton" @click="valor++">Incrementar Valor</button> <!-- Botón para cambiar el valor -->
+                        </div>
+                    `
+                }
+            }
+        }).mount('#app'); 
+    </script>
+</body>
+</html>
+<!--Realizado con option api-->

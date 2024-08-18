@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Componente Condicional</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+    <div id="app">
+        <mensaje :sesion-iniciada="sesionIniciada"></mensaje>
+        <button @click="cambiarSesion">Cambiar estado de Sesión</button>
+    </div>
+
+    <script>
+        // Definición del componente usando Option API
+        Vue.createApp({
+            //Aca se define el estado reactivo de la pagina
+            data() {
+                return {
+                    sesionIniciada: false // Indica si la sesion esta iniciada
+                };
+            },
+            //Aca se definen los metodos
+            methods: {
+                //Metodo para cambiar estado de la sesion
+                cambiarSesion() {
+                    this.sesionIniciada = !this.sesionIniciada;
+                }
+            },
+            //Aca en este componente se realiza la condicional si la sesion esta iniciada mostrar un mensaje o sino mostrar otro mensaje 
+            components: {
+                'mensaje': {
+                    props: ['sesionIniciada'],
+                    template: `
+                        <div>
+                            <p v-if="sesionIniciada">¡Bienvenido de nuevo, usuario!</p>
+                            <p v-else>Por favor, inicia sesión para continuar.</p>
+                        </div>
+                    `
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>
+<!--Realizado con option api-->
